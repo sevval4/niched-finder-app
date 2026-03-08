@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Search, Sparkles, Loader2 } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
-import { useInfluencers } from "@/hooks/useInfluencers";
+import { useInfluencers, Influencer } from "@/hooks/useInfluencers";
 import InfluencerCard from "@/components/InfluencerCard";
+import InfluencerDetail from "@/components/InfluencerDetail";
 
 const Index = () => {
   const { influencers, searchQuery, setSearchQuery, total } = useInfluencers();
+  const [selectedInfluencer, setSelectedInfluencer] = useState<Influencer | null>(null);
 
   return (
     <div className="min-h-screen bg-background">
@@ -39,7 +41,6 @@ const Index = () => {
             </p>
           </motion.div>
 
-          {/* Search Bar */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,12 +82,21 @@ const Index = () => {
               <InfluencerCard
                 key={influencer.id}
                 influencer={influencer}
+                onSelect={() => setSelectedInfluencer(influencer)}
                 index={i}
               />
             ))}
           </div>
         )}
       </main>
+
+      {/* Detail Modal */}
+      {selectedInfluencer && (
+        <InfluencerDetail
+          influencer={selectedInfluencer}
+          onClose={() => setSelectedInfluencer(null)}
+        />
+      )}
     </div>
   );
 };

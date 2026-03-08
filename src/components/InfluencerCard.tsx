@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Users } from "lucide-react";
+import { Users, BadgeCheck } from "lucide-react";
 
 interface Influencer {
   id: string;
@@ -8,6 +8,8 @@ interface Influencer {
   biography: string;
   followersCount: number;
   profilePicUrl: string;
+  verified?: boolean;
+  isBusinessAccount?: boolean;
 }
 
 const formatFollowers = (count: number) => {
@@ -18,16 +20,18 @@ const formatFollowers = (count: number) => {
 
 interface InfluencerCardProps {
   influencer: Influencer;
+  onSelect: () => void;
   index: number;
 }
 
-const InfluencerCard = ({ influencer, index }: InfluencerCardProps) => {
+const InfluencerCard = ({ influencer, onSelect, index }: InfluencerCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: Math.min(index * 0.03, 0.5) }}
-      className="group rounded-xl border border-border bg-card p-5 shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1"
+      className="group rounded-xl border border-border bg-card p-5 shadow-card transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 cursor-pointer"
+      onClick={onSelect}
     >
       <div className="flex items-start gap-4">
         <img
@@ -40,9 +44,14 @@ const InfluencerCard = ({ influencer, index }: InfluencerCardProps) => {
           }}
         />
         <div className="min-w-0 flex-1">
-          <h3 className="font-semibold text-card-foreground truncate">
-            {influencer.fullName || influencer.username}
-          </h3>
+          <div className="flex items-center gap-1.5">
+            <h3 className="font-semibold text-card-foreground truncate">
+              {influencer.fullName || influencer.username}
+            </h3>
+            {influencer.verified && (
+              <BadgeCheck className="h-4 w-4 text-accent shrink-0" />
+            )}
+          </div>
           <p className="text-sm text-muted-foreground">@{influencer.username}</p>
         </div>
       </div>
@@ -60,6 +69,10 @@ const InfluencerCard = ({ influencer, index }: InfluencerCardProps) => {
             {formatFollowers(influencer.followersCount)}
           </span>
         </div>
+      </div>
+
+      <div className="mt-3 text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
+        Detayları gör →
       </div>
     </motion.div>
   );
