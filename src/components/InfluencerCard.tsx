@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Users, BadgeCheck } from "lucide-react";
+import { getAvatarFallback } from "@/lib/avatar";
 
 interface Influencer {
   id: string;
@@ -40,7 +41,7 @@ const InfluencerCard = ({ influencer, onSelect, index }: InfluencerCardProps) =>
           className="h-14 w-14 shrink-0 rounded-full object-cover ring-2 ring-border bg-muted"
           loading="lazy"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = "/placeholder.svg";
+            (e.target as HTMLImageElement).src = getAvatarFallback(influencer.fullName, influencer.username);
           }}
         />
         <div className="min-w-0 flex-1">
