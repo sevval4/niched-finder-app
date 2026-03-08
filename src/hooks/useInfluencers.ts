@@ -38,7 +38,7 @@ export function useInfluencers() {
       businessCategoryName: item.businessCategoryName || null,
       postsCount: item.postsCount ?? 0,
       private: item.private || false,
-      externalUrls: item.externalUrls || [],
+      externalUrls: (item.externalUrls || []).map((u: any) => (typeof u === "string" ? u : u.url || "")),
     }));
   }, []);
 
