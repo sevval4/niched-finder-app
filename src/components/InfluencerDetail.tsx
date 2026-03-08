@@ -1,5 +1,6 @@
 import { Influencer } from "@/hooks/useInfluencers";
 import { X, Users, UserPlus, Grid3X3, ExternalLink, BadgeCheck, Briefcase, Globe } from "lucide-react";
+import { getAvatarFallback } from "@/lib/avatar";
 import { motion, AnimatePresence } from "framer-motion";
 
 const formatCount = (count: number) => {
@@ -64,7 +65,7 @@ const InfluencerDetail = ({ influencer, onClose }: InfluencerDetailProps) => {
               alt={influencer.fullName}
               className="h-24 w-24 rounded-2xl object-cover ring-4 ring-card shadow-card-hover bg-muted"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = "/placeholder.svg";
+                (e.target as HTMLImageElement).src = getAvatarFallback(influencer.fullName, influencer.username);
               }}
             />
           </div>
