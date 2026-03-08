@@ -1,0 +1,9 @@
+{
+  "appId": "app.lovable.dda6be7476174c55ba5ccb8c0c4342a4",
+  "appName": "CreatorHunter",
+  "webDir": "dist",
+  "server": {
+    "url": "https://dda6be74-7617-4c55-ba5c-cb8c0c4342a4.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  }
+}
